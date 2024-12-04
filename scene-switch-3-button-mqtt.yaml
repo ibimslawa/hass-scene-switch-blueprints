@@ -1,0 +1,114 @@
+blueprint:
+  name: Scene switch 4 buttons (Zigbee2MQTT)
+  description: >-
+    Easy automation of 3 button scene switches derived from the Tuya TS0043 utilizing MQTT.
+    Filter used for the MQTT topic: "zigbee2mqtt/DEVICENAME/action"
+  domain: automation
+  input:
+    mqtt_device_1:
+      name: MQTT device name 1
+      description: "Use the device name set in Z2M."
+      selector:
+        text:
+    mqtt_device_2:
+      name: MQTT device name 2
+      description: "Use the device name set in Z2M."
+      default: {}
+      selector:
+        text:
+    button_1_single:
+      name: "Button 1: Single"
+      description: Single press of button 1
+      default: []
+      selector:
+        action: {}
+    button_1_double:
+      name: "Button 1: Double"
+      description: Double press of button 1
+      default: []
+      selector:
+        action: {}
+    button_1_hold:
+      name: "Button 1: Long"
+      description: Long press of button 1
+      default: []
+      selector:
+        action: {}
+    button_2_single:
+      name: "Button 2: Single"
+      description: Single press of button 2
+      default: []
+      selector:
+        action: {}
+    button_2_double:
+      name: "Button 2: Double"
+      description: Double press of button 2
+      default: []
+      selector:
+        action: {}
+    button_2_hold:
+      name: "Button 2: Long"
+      description: Long press of button 2
+      default: []
+      selector:
+        action: {}
+    button_3_single:
+      name: "Button 3: Single"
+      description: Single press of button 3
+      default: []
+      selector:
+        action: {}
+    button_3_double:
+      name: "Button 3: Double"
+      description: Double press of button 3
+      default: []
+      selector:
+        action: {}
+    button_3_hold:
+      name: "Button 3: Long"
+      description: Long press of button 3
+      default: []
+      selector:
+        action: {}
+mode: parallel
+max: 3
+max_exceeded: silent
+trigger_variables:
+  mqtt_device_1: !input mqtt_device_1
+  mqtt_device_2: !input mqtt_device_2
+trigger:
+  - platform: mqtt
+    topic: "zigbee2mqtt/{{ mqtt_device_1 }}/action"
+  - platform: mqtt
+    topic: "zigbee2mqtt/{{ mqtt_device_2 }}/action"
+action:
+  - variables:
+      trigpl: "{{ trigger.payload }}"
+  - choose:
+      - conditions:
+          - "{{ trigpl == '1_single' }}"
+        sequence: !input button_1_single
+      - conditions:
+          - "{{ trigpl == '1_double' }}"
+        sequence: !input button_1_double
+      - conditions:
+          - "{{ trigpl == '1_hold' }}"
+        sequence: !input button_1_hold
+      - conditions:
+          - "{{ trigpl == '2_single' }}"
+        sequence: !input button_2_single
+      - conditions:
+          - "{{ trigpl == '2_double' }}"
+        sequence: !input button_2_double
+      - conditions:
+          - "{{ trigpl == '2_hold' }}"
+        sequence: !input button_2_hold
+      - conditions:
+          - "{{ trigpl == '3_single' }}"
+        sequence: !input button_3_single
+      - conditions:
+          - "{{ trigpl == '3_double' }}"
+        sequence: !input button_3_double
+      - conditions:
+          - "{{ trigpl == '3_hold' }}"
+        sequence: !input button_3_hold
