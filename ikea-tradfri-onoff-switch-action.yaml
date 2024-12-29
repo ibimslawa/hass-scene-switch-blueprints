@@ -1,0 +1,68 @@
+blueprint:
+  name: IKEA TRADFRI E1743 On/Off Switch (Action Property)
+  description: >-
+    Easy automation of the IKEA TRADFRI Single On/Off Switch (E1743), utilizing the action property.
+  domain: automation
+  input:
+    action_entity:
+      name: TRADFRI Switch _action entity
+      description: "The _action or _click entity of your TRADFRI Switch"
+      selector:
+        entity:
+          integration: mqtt
+          domain: sensor
+          multiple: true
+    button_on:
+      name: "Button On"
+      description: Button On pressed
+      default: []
+      selector:
+        action: {}
+    button_off:
+      name: "Button Off"
+      description: Button Off pressed
+      default: []
+      selector:
+        action: {}
+    button_dim_up:
+      name: "Dim Up"
+      description: Holding down Button On (called once)
+      default: []
+      selector:
+        action: {}
+    button_dim_down:
+      name: "Dim Down"
+      description: Holding down Button Off (called once)
+      default: []
+      selector:
+        action: {}
+    button_dim_stop:
+      name: "Dim Stop"
+      description: Stopped holding down On or Off Button (called once)
+      default: []
+      selector:
+        action: {}
+mode: parallel
+max: 2
+max_exceeded: silent
+trigger:
+  - platform: state
+    entity_id: !input action_entity
+action:
+  - variables:
+      trig_cmd: "{{ trigger.to_state.state }}"
+  - choose:
+      - conditions:
+          - "{{ trig_cmd == 'on' }}"
+        sequence: !input button_on
+      - conditions:
+          - "{{ trig_cmd == 'off' }}"
+        sequence: !input button_off
+      - conditions:
+          - "{{ trig_cmd == 'brightness_move_up' }}"
+        sequence: !input button_dim_up
+      - conditions:
+          - "{{ trig_cmd == 'brightness_move_down' }}"
+        sequence: !input button_dim_down
+      - conditions:
+          - "{{ trig_cmd == 'brightness_stop' }}"

@@ -1,12 +1,12 @@
 blueprint:
-  name: Paulmann 50134 Wall Scene Switch (Action Property)
+  name: Paulmann 501.34 Wall Scene Switch (Action Property)
   description: >-
-    Easy automation of the Paulmann 50134 Wall Scene Switch with switch and dimming control, utilizing the action property.
+    Easy automation of the Paulmann 501.34 Wall Scene Switch with switch and dimming control, utilizing the action property.
   domain: automation
   input:
     action_entity:
-      name: Paulmann Wall Switch _action entity
-      description: "The _action entity of your Paulmann 50134 Wall Switch"
+      name: Wall Switch _action entity
+      description: "The _action entity of your Paulmann 501.34 Wall Switch"
       selector:
         entity:
           integration: mqtt
