@@ -7,38 +7,45 @@ The Paulmann 50134 Wall Switch is also available as an blueprint.
 
 ## Available scene switch blueprints
 
-**4-Button Scene Switch (Tuya TS0044 or alikes)**
+**4-Button Scene Switch (Tuya TS0044 or alikes):**
+
 Blueprint for simple 4 button scene switches. Original make is Tuya TS0044. Several white labels exist with different designs.
 [Zigbee2Mqtt Docs: Tuya TS0042](https://www.zigbee2mqtt.io/devices/TS0044.html)
 
-**3-Button Scene Switch (Tuya TS0043 or alikes)**
+**3-Button Scene Switch (Tuya TS0043 or alikes):**
+
 Blueprint for simple 3 button scene switches. Original make is Tuya TS0043. Several white labels exist with different designs.
 [Zigbee2Mqtt Docs: Tuya TS0042](https://www.zigbee2mqtt.io/devices/TS0043.html)
 
-**2-Button Scene Switch (Tuya TS0042 or alikes)**
+**2-Button Scene Switch (Tuya TS0042 or alikes):**
+
 Blueprint for simple 2 button scene switches. Original make is Tuya TS0042. Several white labels exist with different designs.
 [Zigbee2Mqtt Docs: Tuya TS0042](https://www.zigbee2mqtt.io/devices/TS0042.html)
 
-**Paulmann 501.34 Wall Switch**
+**Paulmann 501.34 Wall Switch:**
+
 Wall Switch with two groups each consisting of one on and one off button. 
 [Zigbee2Mqtt Docs: Paulmann 501.34](https://www.zigbee2mqtt.io/devices/501.34.html)
 
-**IKEA Single On/Off Switch (TRADFRI E1743)**
+**IKEA Single On/Off Switch (TRADFRI E1743):**
+
 Scene switch from IKEA called "TRADFRI" with on and off button.
 [Zigbee2Mqtt Docs: IKEA E1743 TRADFRI](https://www.zigbee2mqtt.io/devices/e1743.html)
 
 ## Blueprint variants
 
-**Action Entity variant**
+**Action Entity variant:**
+
 This variant utilizes a state trigger for an user-provided "_action" entity of the scene switch.
 The "_action" entity is only available if "legacy_triggers" is activated in the configuration of Zigbee2Mqtt.
-Edit this option directly in the GUI settings of Z2M or add this to your Z2M "configuration.yaml":
+Edit this option directly in the GUI settings of Z2M or add the following to your Z2M "configuration.yaml":
 ```
 homeassistant:
   legacy_triggers: true
 ```
 
-**MQTT variant**
+**MQTT variant:**
+
 This variant utilizes a MQTT topic trigger. 
 For a user provided device name the blueprint is triggered on the "/action" topic.
 Two slots are available for a device name.
