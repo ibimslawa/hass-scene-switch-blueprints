@@ -1,5 +1,5 @@
 blueprint:
-  name: Scene Switch 4 Buttons (Action Property)
+  name: Scene Switch 4 Buttons (Tuya) (Action Property)
   description: >-
     Easy automation of 4 button scene switches of the kind Tuya TS0044 utilizing the action property.
   domain: automation

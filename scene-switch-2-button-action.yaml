@@ -1,12 +1,12 @@
 blueprint:
-  name: Scene Switch 3 Buttons (Tuya) (Action Property)
+  name: Scene Switch 2 Buttons (Tuya) (Action Property)
   description: >-
-    Easy automation of 3 button scene switches of the kind Tuya TS0043 utilizing the action property.
+    Easy automation of 2 button scene switches of the kind Tuya TS0042 utilizing the action property.
   domain: automation
   input:
     action_entity:
       name: Scene Switch _action entity
-      description: "The _action entity of your 3-Button Scene Switch to use (for example model TS0043)"
+      description: "The _action entity of your 2-Button Scene Switch to use (for example model TS0042)"
       selector:
         entity:
           integration: mqtt
@@ -48,24 +48,6 @@ blueprint:
       default: []
       selector:
         action: {}
-    button_3_single:
-      name: "Button 3: Single"
-      description: Single press of button 3
-      default: []
-      selector:
-        action: {}
-    button_3_double:
-      name: "Button 3: Double"
-      description: Double press of button 3
-      default: []
-      selector:
-        action: {}
-    button_3_long:
-      name: "Button 3: Long"
-      description: Long Long press of button 3
-      default: []
-      selector:
-        action: {}
 mode: parallel
 max: 3
 max_exceeded: silent
@@ -94,12 +76,3 @@ action:
       - conditions:
           - "{{ trig_cmd == '2_hold' }}"
         sequence: !input button_2_long
-      - conditions:
-          - "{{ trig_cmd == '3_single' }}"
-        sequence: !input button_3_single
-      - conditions:
-          - "{{ trig_cmd == '3_double' }}"
-        sequence: !input button_3_double
-      - conditions:
-          - "{{ trig_cmd == '3_hold' }}"
-        sequence: !input button_3_long
