@@ -1,21 +1,17 @@
 blueprint:
-  name: Scene Switch 3 Buttons (Zigbee2MQTT)
+  name: Scene Switch 3 Buttons (Action Property)
   description: >-
-    Easy automation of 3 button scene switches of the kind Tuya TS0043 utilizing MQTT.
-    Filter used for the MQTT topic: "zigbee2mqtt/DEVICENAME/action"
+    Easy automation of 3 button scene switches of the kind Tuya TS0043 utilizing the action property.
   domain: automation
   input:
-    mqtt_device_1:
-      name: MQTT device name 1
-      description: "Use the device name set in Z2M."
+    action_entity:
+      name: Scene Switch _action entity
+      description: "The _action entity of your 3-Button Scene Switch to use (for example model TS0043)"
       selector:
-        text:
-    mqtt_device_2:
-      name: MQTT device name 2
-      description: "Use the device name set in Z2M."
-      default: {}
-      selector:
-        text:
+        entity:
+          integration: mqtt
+          domain: sensor
+          multiple: true
     button_1_single:
       name: "Button 1: Single"
       description: Single press of button 1
@@ -28,7 +24,7 @@ blueprint:
       default: []
       selector:
         action: {}
-    button_1_hold:
+    button_1_long:
       name: "Button 1: Long"
       description: Long press of button 1
       default: []
@@ -46,7 +42,7 @@ blueprint:
       default: []
       selector:
         action: {}
-    button_2_hold:
+    button_2_long:
       name: "Button 2: Long"
       description: Long press of button 2
       default: []
@@ -64,51 +60,46 @@ blueprint:
       default: []
       selector:
         action: {}
-    button_3_hold:
+    button_3_long:
       name: "Button 3: Long"
-      description: Long press of button 3
+      description: Long Long press of button 3
       default: []
       selector:
         action: {}
 mode: parallel
 max: 3
 max_exceeded: silent
-trigger_variables:
-  mqtt_device_1: !input mqtt_device_1
-  mqtt_device_2: !input mqtt_device_2
 trigger:
-  - platform: mqtt
-    topic: "zigbee2mqtt/{{ mqtt_device_1 }}/action"
-  - platform: mqtt
-    topic: "zigbee2mqtt/{{ mqtt_device_2 }}/action"
+  - platform: state
+    entity_id: !input action_entity
 action:
   - variables:
-      trig_pl: "{{ trigger.payload }}"
+      trig_cmd: "{{ trigger.to_state.state }}"
   - choose:
       - conditions:
-          - "{{ trig_pl == '1_single' }}"
+          - "{{ trig_cmd == '1_single' }}"
         sequence: !input button_1_single
       - conditions:
-          - "{{ trig_pl == '1_double' }}"
+          - "{{ trig_cmd == '1_double' }}"
         sequence: !input button_1_double
       - conditions:
-          - "{{ trig_pl == '1_hold' }}"
-        sequence: !input button_1_hold
+          - "{{ trig_cmd == '1_hold' }}"
+        sequence: !input button_1_long
       - conditions:
-          - "{{ trig_pl == '2_single' }}"
+          - "{{ trig_cmd == '2_single' }}"
         sequence: !input button_2_single
       - conditions:
-          - "{{ trig_pl == '2_double' }}"
+          - "{{ trig_cmd == '2_double' }}"
         sequence: !input button_2_double
       - conditions:
-          - "{{ trig_pl == '2_hold' }}"
-        sequence: !input button_2_hold
+          - "{{ trig_cmd == '2_hold' }}"
+        sequence: !input button_2_long
       - conditions:
-          - "{{ trig_pl == '3_single' }}"
+          - "{{ trig_cmd == '3_single' }}"
         sequence: !input button_3_single
       - conditions:
-          - "{{ trig_pl == '3_double' }}"
+          - "{{ trig_cmd == '3_double' }}"
         sequence: !input button_3_double
       - conditions:
-          - "{{ trig_pl == '3_hold' }}"
-        sequence: !input button_3_hold
+          - "{{ trig_cmd == '3_hold' }}"
+        sequence: !input button_3_long

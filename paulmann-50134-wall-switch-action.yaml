@@ -1,0 +1,114 @@
+blueprint:
+  name: Paulmann 50134 Wall Scene Switch (Action Property)
+  description: >-
+    Easy automation of the Paulmann 50134 Wall Scene Switch with switch and dimming control, utilizing the action property.
+  domain: automation
+  input:
+    action_entity:
+      name: Paulmann Wall Switch _action entity
+      description: "The _action entity of your Paulmann 50134 Wall Switch"
+      selector:
+        entity:
+          integration: mqtt
+          domain: sensor
+          multiple: true
+    group_1_on:
+      name: "Group 1: On"
+      description: Left hand Button On pressed
+      default: []
+      selector:
+        action: {}
+    group_1_off:
+      name: "Group 1: Off"
+      description: Left hand Button Off pressed
+      default: []
+      selector:
+        action: {}
+    group_1_dim_up:
+      name: "Group 1: Dim Up"
+      description: Holding down left hand Button On (called once)
+      default: []
+      selector:
+        action: {}
+    group_1_dim_down:
+      name: "Group 1: Dim Down"
+      description: Holding down left hand Button Off (called once)
+      default: []
+      selector:
+        action: {}
+    group_1_dim_stop:
+      name: "Group 1: Dim Stop"
+      description: Stopped holding down left hand Buttons (called once)
+      default: []
+      selector:
+        action: {}
+    group_2_on:
+      name: "Group 2: On"
+      description: Right hand Button On pressed
+      default: []
+      selector:
+        action: {}
+    group_2_off:
+      name: "Group 2: Off"
+      description: Right hand Button Off pressed
+      default: []
+      selector:
+        action: {}
+    group_2_dim_up:
+      name: "Group 2: Dim Up"
+      description: Holding down right hand Button On (called once)
+      default: []
+      selector:
+        action: {}
+    group_2_dim_down:
+      name: "Group 2: Dim Down"
+      description: Holding down right hand Button Off (called once)
+      default: []
+      selector:
+        action: {}
+    group_2_dim_stop:
+      name: "Group 2: Dim Stop"
+      description: Stopped holding down right hand Buttons (called once)
+      default: []
+      selector:
+        action: {}
+mode: parallel
+max: 2
+max_exceeded: silent
+trigger:
+  - platform: state
+    entity_id: !input action_entity
+action:
+  - variables:
+      trig_cmd: "{{ trigger.to_state.state }}"
+  - choose:
+      - conditions:
+          - "{{ trig_cmd == 'on_1' }}"
+        sequence: !input group_1_on
+      - conditions:
+          - "{{ trig_cmd == 'off_1' }}"
+        sequence: !input group_1_off
+      - conditions:
+          - "{{ trig_cmd == 'brightness_move_up_1' }}"
+        sequence: !input group_1_dim_up
+      - conditions:
+          - "{{ trig_cmd == 'brightness_move_down_1' }}"
+        sequence: !input group_1_dim_down
+      - conditions:
+          - "{{ trig_cmd == 'brightness_move_stop_1' }}"
+        sequence: !input group_1_dim_stop
+      - conditions:
+          - "{{ trig_cmd == 'on_2' }}"
+        sequence: !input group_2_on
+      - conditions:
+          - "{{ trig_cmd == 'off_2' }}"
+        sequence: !input group_2_off
+      - conditions:
+          - "{{ trig_cmd == 'brightness_move_up_2' }}"
+        sequence: !input group_2_dim_up
+      - conditions:
+          - "{{ trig_cmd == 'brightness_move_down_2' }}"
+        sequence: !input group_2_dim_down
+      - conditions:
+          - "{{ trig_cmd == 'brightness_move_stop_2' }}"
+        sequence: !input group_2_dim_stop
