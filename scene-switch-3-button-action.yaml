@@ -2,6 +2,7 @@ blueprint:
   name: Scene Switch 3 Buttons (Tuya) (Action Property)
   description: >-
     Easy automation of 3 button scene switches of the kind Tuya TS0043 utilizing the action property.
+  author: ibimslawa
   domain: automation
   input:
     action_entity:

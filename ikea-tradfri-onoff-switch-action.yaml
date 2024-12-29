@@ -2,6 +2,7 @@ blueprint:
   name: IKEA TRADFRI E1743 On/Off Switch (Action Property)
   description: >-
     Easy automation of the IKEA TRADFRI Single On/Off Switch (E1743), utilizing the action property.
+  author: ibimslawa
   domain: automation
   input:
     action_entity:

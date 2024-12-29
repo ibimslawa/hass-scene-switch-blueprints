@@ -3,6 +3,7 @@ blueprint:
   description: >-
     Easy automation of 3 button scene switches of the kind Tuya TS0043 utilizing MQTT.
     Filter used for the MQTT topic: "zigbee2mqtt/DEVICENAME/action"
+  author: ibimslawa
   domain: automation
   input:
     mqtt_device_1:

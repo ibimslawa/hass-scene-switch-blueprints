@@ -4,6 +4,7 @@ blueprint:
     Easy automation of 4 button scene switches of the kind Tuya TS0044 utilizing MQTT.
     Filter used for the MQTT topic: "zigbee2mqtt/DEVICENAME/action"
   domain: automation
+  author: ibimslawa
   input:
     mqtt_device_1:
       name: MQTT device name 1

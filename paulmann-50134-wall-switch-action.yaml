@@ -2,6 +2,7 @@ blueprint:
   name: Paulmann 501.34 Wall Scene Switch (Action Property)
   description: >-
     Easy automation of the Paulmann 501.34 Wall Scene Switch with switch and dimming control, utilizing the action property.
+  author: ibimslawa
   domain: automation
   input:
     action_entity:
